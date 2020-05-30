@@ -3,16 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.syntax.class02.HWAddEmployee">
+      <class name="com.practice.AddMultipleEmployee">
         <methods>
-          <include name="verifyLabels"/>
-          <include name="openChromeBrowser"/>
-          <include name="addEmployee"/>
-          <include name="verifyEmployeeAdded"/>
-          <include name="login"/>
-          <include name="closeBrowser"/>
+          <include name="addMultipleEmployee"/>
+          <include name="setUp"/>
+          <include name="tearDown"/>
         </methods>
-      </class> <!-- com.syntax.class02.HWAddEmployee -->
+      </class> <!-- com.practice.AddMultipleEmployee -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

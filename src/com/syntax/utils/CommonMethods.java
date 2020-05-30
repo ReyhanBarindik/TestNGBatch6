@@ -1,20 +1,25 @@
 package com.syntax.utils;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchFrameException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.UnexpectedTagNameException;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class CommonMethods extends BaseClass {
+public class CommonMethods extends PageInitializer {
 	/**
 	 * Method that clears and send keys
 	 * 
@@ -39,7 +44,7 @@ public class CommonMethods extends BaseClass {
 			actualValue = el.getAttribute("value").trim();
 			if (el.isEnabled() && actualValue.equals(value)) {
 				el.click();
-				wait(2);
+				
 				break;
 			}
 		}
@@ -240,4 +245,39 @@ public class CommonMethods extends BaseClass {
 		getJSObject().executeScript("window.scrollBy(0,-" + pixel + ")");
 	}
 
+	public static void takeScreenshot(String folderName, String testName, String firstName,String lastName) {
+		TakesScreenshot ts = (TakesScreenshot) driver;
+		File sourceFile = ts.getScreenshotAs(OutputType.FILE);
+		try {
+			FileUtils.copyFile(sourceFile, new File("Screenshots/"+folderName+"/"+testName + firstName+lastName + ".png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void takeScreenshot(String fileName) {
+		TakesScreenshot ts = (TakesScreenshot) driver;
+		File file = ts.getScreenshotAs(OutputType.FILE);
+		try {
+			FileUtils.copyFile(file, new File("screenshots/" + fileName + ".png"));
+		} catch (Exception ex) {
+			System.out.println("Cannot take screenshot!");
+		}
+	}
+	
+	
+	
+	
+	
+	
 }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+

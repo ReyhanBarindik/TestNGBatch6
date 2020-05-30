@@ -3,8 +3,9 @@ package com.syntax.class02;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-import com.syntax.pages.AddEmployee;
-import com.syntax.pages.LoginPageElements;
+import com.syntax.pages.AddEmployeePageElements;
+
+
 import com.syntax.utils.CommonMethods;
 import com.syntax.utils.ConfigsReader;
 
@@ -19,7 +20,7 @@ public class HWAddEmployee extends CommonMethods {
 	 * successfully 9. Close the browser
 	 */
 
-	@BeforeMethod
+	/*@BeforeMethod
 	public void openChromeBrowser() {
 		setUp();	
 	}
@@ -28,62 +29,47 @@ public class HWAddEmployee extends CommonMethods {
 	public void closeBrowser() {
 		driver.close();
 	}
-
-	@Test 
+*/
+	
+	@Test (priority = 1)
 	public void login() {
-		LoginPageElements login = new LoginPageElements();
-		sendText(login.username, ConfigsReader.getProperty("username"));
-		sendText(login.password, ConfigsReader.getProperty("password"));
-		waitAndClick(login.loginBtn);
-
+		login.login(ConfigsReader.getProperty("username"), ConfigsReader.getProperty("password"));
+        
 	}
 
-	@Test 
+	@Test (priority = 2)
 	public void verifyLabels() {
-		LoginPageElements login = new LoginPageElements();
-		sendText(login.username, ConfigsReader.getProperty("username"));
-		sendText(login.password, ConfigsReader.getProperty("password"));
-		waitAndClick(login.loginBtn);
-
-		AddEmployee emp = new AddEmployee();
-		waitAndClick(emp.pim);
-		waitAndClick(emp.addEmp);
-		boolean employeeFirstNameIsDisplay = emp.empFirstName.isDisplayed();
+		login.login(ConfigsReader.getProperty("username"), ConfigsReader.getProperty("password"));
+		dashboard.navigateToAddEmp();
+		
+		AddEmployeePageElements emp1 = new AddEmployeePageElements();
+		boolean employeeFirstNameIsDisplay = emp1.empFirstName.isDisplayed();
 		Assert.assertTrue(employeeFirstNameIsDisplay, "Employee's first name is Displayed.");
-		boolean employeeLastNameIsDisplay = emp.empLastName.isDisplayed();
+		boolean employeeLastNameIsDisplay = emp1.empLastName.isDisplayed();
 		Assert.assertTrue(employeeLastNameIsDisplay, "Employee's last name is Displayed.");
-		boolean employeeIdIsDisplay = emp.employeeId.isDisplayed();
+		boolean employeeIdIsDisplay = emp1.employeeId.isDisplayed();
 		Assert.assertTrue(employeeIdIsDisplay, "Employee'Id is Displayed.");
 
 	}
 
-	@Test
+	@Test(priority = 3)
 	public void addEmployee() {
-		LoginPageElements login = new LoginPageElements();
-		sendText(login.username, ConfigsReader.getProperty("username"));
-		sendText(login.password, ConfigsReader.getProperty("password"));
-		waitAndClick(login.loginBtn);
+		login.login(ConfigsReader.getProperty("username"), ConfigsReader.getProperty("password"));
+		dashboard.navigateToAddEmp();
 		
-		AddEmployee emp = new AddEmployee();
-		waitAndClick(emp.pim);
-		waitAndClick(emp.addEmp);
-		sendText(emp.empFirstName, ConfigsReader.getProperty("employeeFirstname"));
-		sendText(emp.empLastName, ConfigsReader.getProperty("employeeLastname"));
-		sendText(emp.addPhoto, ConfigsReader.getProperty("filePath"));
-		waitAndClick(emp.saveEmp);
+		AddEmployeePageElements emp1 = new AddEmployeePageElements();
+		sendText(emp1.empFirstName, ConfigsReader.getProperty("employeeFirstname"));
+		sendText(emp1.empLastName, ConfigsReader.getProperty("employeeLastname"));
+		sendText(emp1.addPhoto, ConfigsReader.getProperty("filePath"));
+		waitAndClick(emp1.saveEmp);
 	}
 
-	@Test
+	@Test(priority = 4)
 	public void verifyEmployeeAdded() {
-		LoginPageElements login = new LoginPageElements();
-		sendText(login.username, ConfigsReader.getProperty("username"));
-		sendText(login.password, ConfigsReader.getProperty("password"));
-		waitAndClick(login.loginBtn);
+		login.login(ConfigsReader.getProperty("username"), ConfigsReader.getProperty("password"));
+		dashboard.navigateToAddEmp();
 		
-		AddEmployee emp2 = new AddEmployee();
-		waitAndClick(emp2.pim);
-		waitAndClick(emp2.addEmp);
-
+		AddEmployeePageElements emp2 = new AddEmployeePageElements();
 		sendText(emp2.empFirstName, ConfigsReader.getProperty("employeeFirstname"));
 		sendText(emp2.empLastName, ConfigsReader.getProperty("employeeLastname"));
 		sendText(emp2.addPhoto, ConfigsReader.getProperty("filePath"));
